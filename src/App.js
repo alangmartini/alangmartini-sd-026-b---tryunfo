@@ -14,6 +14,7 @@ class App extends React.Component {
     cardTrunfo: false,
     hasTrunfo: false,
     isSaveButtonDisabled: true,
+    filterName: '',
   };
 
   constructor() {
@@ -22,6 +23,7 @@ class App extends React.Component {
     this.state = {
       ...this.initialState,
       storedCards: [],
+      filteredStoredCards: [],
     };
   }
 
@@ -66,6 +68,7 @@ class App extends React.Component {
     this.setState({ [target.name]: value }, () => {
       this.validateButton();
     });
+    return value;
   };
 
   isSuperTrunfoPresent = () => {
@@ -114,6 +117,14 @@ class App extends React.Component {
     );
   };
 
+  filterCards = (newName) => {
+    const { storedCards } = this.state;
+    const applyFilter = storedCards
+      .filter((card) => card.cardName.split(' ').includes(newName));
+    console.log(applyFilter);
+    this.setState({ filteredStoredCards: applyFilter });
+  };
+
   render() {
     const {
       cardName,
@@ -127,7 +138,16 @@ class App extends React.Component {
       hasTrunfo,
       isSaveButtonDisabled,
       storedCards,
+      filterName,
     } = this.state;
+
+    const arrayToRender = () => {
+      const { filteredStoredCards } = this.state;
+      console.log(filterName);
+      if (filterName) return filteredStoredCards;
+      return storedCards;
+    };
+
     return (
       <div>
         <Form
@@ -155,8 +175,18 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isPreview
         />
+        <input
+          type="text"
+          data-testid="name-filter"
+          name="filterName"
+          value={ filterName }
+          onChange={ (e) => {
+            console.log('oi');
+            this.filterCards(this.onInputChange(e));
+          } }
+        />
         {
-          storedCards.map((carta) => (
+          arrayToRender().map((carta) => (
             <Card
               key={ carta.cardName }
               cardName={ carta.cardName }
