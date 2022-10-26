@@ -15,6 +15,7 @@ class App extends React.Component {
     hasTrunfo: false,
     isSaveButtonDisabled: true,
     filterName: '',
+    filterRarity: '',
   };
 
   constructor() {
@@ -23,7 +24,6 @@ class App extends React.Component {
     this.state = {
       ...this.initialState,
       storedCards: [],
-      filteredStoredCards: [],
     };
   }
 
@@ -117,12 +117,17 @@ class App extends React.Component {
     );
   };
 
-  filterCards = (newName) => {
-    const { storedCards } = this.state;
+  filterCards = () => {
+    const { storedCards, filterName, filterRarity } = this.state;
+    const arrayOfFilters = [];
+    if (filterName) arrayOfFilters.push(filterName);
+    if (filterRarity) arrayOfFilters.push(filterRarity);
     const applyFilter = storedCards
-      .filter((card) => card.cardName.split(' ').includes(newName));
+      .filter((card) => {
+        const toCompare = card.cardName.split(' ');
+        return toCompare.some((word) => arrayOfFilters.includes(word));
+      });
     console.log(applyFilter);
-    this.setState({ filteredStoredCards: applyFilter });
   };
 
   render() {
@@ -139,12 +144,12 @@ class App extends React.Component {
       isSaveButtonDisabled,
       storedCards,
       filterName,
+      filterRarity,
     } = this.state;
 
     const arrayToRender = () => {
-      const { filteredStoredCards } = this.state;
-      console.log(filterName);
-      if (filterName) return filteredStoredCards;
+      const filteredStoredCards = this.filterCards();
+      if (filterName || filterRarity) return filteredStoredCards;
       return storedCards;
     };
 
@@ -180,11 +185,18 @@ class App extends React.Component {
           data-testid="name-filter"
           name="filterName"
           value={ filterName }
-          onChange={ (e) => {
-            console.log('oi');
-            this.filterCards(this.onInputChange(e));
-          } }
+          onChange={ this.filterCards }
         />
+        <select
+          data-testid="rare-input"
+          onChange={ this.onInputChange }
+          value={ filterRarity }
+          name="filterRarity"
+        >
+          <option value="normal"> Normal</option>
+          <option selected value="raro"> Raro</option>
+          <option value="muito raro"> Muito Raro</option>
+        </select>
         {
           arrayToRender().map((carta) => (
             <Card
