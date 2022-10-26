@@ -24,6 +24,7 @@ class Form extends Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     return (
       <>
         <label htmlFor="name-input">
@@ -33,6 +34,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardName }
             id="name-input"
+            name="cardName"
           />
         </label>
         <label htmlFor="description-input">
@@ -41,6 +43,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardDescription }
             id="description-input"
+            name="cardDescription"
           />
         </label>
         <label htmlFor="attr1-input">
@@ -50,6 +53,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardAttr1 }
             id="attr1-input"
+            name="cardAttr1"
           />
         </label>
         <label htmlFor="attr2-input">
@@ -59,6 +63,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardAttr2 }
             id="attr2-input"
+            name="cardAttr2"
           />
         </label>
         <label htmlFor="attr3-input">
@@ -68,6 +73,7 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardAttr3 }
             id="attr3-input"
+            name="cardAttr3"
           />
         </label>
         <label htmlFor="image-input">
@@ -77,14 +83,16 @@ class Form extends Component {
             onChange={ onInputChange }
             value={ cardImage }
             id="image-input"
+            name="cardImage"
           />
         </label>
         <label htmlFor="rare-input">
           <select
             data-testid="rare-input"
             onChange={ onInputChange }
-            alue={ cardRare }
+            value={ cardRare }
             id="rare-input"
+            name="cardRare"
           >
             <option value="normal"> Normal</option>
             <option selected value="raro"> Raro</option>
@@ -94,11 +102,11 @@ class Form extends Component {
         <label htmlFor="trunfo-input">
           <input
             type="checkbox"
-            checked
             data-testid="trunfo-input"
             onChange={ onInputChange }
             value={ cardTrunfo }
             id="trunfo-input"
+            name="cardTrunfo"
           />
         </label>
         <button
@@ -108,6 +116,7 @@ class Form extends Component {
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
           id="save-button"
+          name="save-button"
         >
           Salvar
         </button>
