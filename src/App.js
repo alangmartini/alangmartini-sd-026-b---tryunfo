@@ -3,21 +3,25 @@ import Form from './components/Form';
 import Card from './components/Card';
 
 class App extends React.Component {
+  initialState = {
+    cardName: '',
+    cardDescription: '',
+    cardAttr1: 0,
+    cardAttr2: 0,
+    cardAttr3: 0,
+    cardImage: '',
+    cardRare: 'normal',
+    cardTrunfo: false,
+    hasTrunfo: false,
+    isSaveButtonDisabled: true,
+  };
+
   constructor() {
     super();
 
     this.state = {
-      cardName: '',
-      cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
-      cardImage: '',
-      cardRare: '',
-      cardTrunfo: '',
-      hasTrunfo: false,
-      isSaveButtonDisabled: true,
-
+      ...this.initialState,
+      storedCards: [],
     };
   }
 
@@ -66,7 +70,37 @@ class App extends React.Component {
     });
   };
 
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      storedCards,
+    } = this.state;
+
+    const card = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+    this.setState({
+      ...this.initialState,
+      storedCards: [...storedCards, card],
+    });
+  };
+
   render() {
+    console.log(this.state);
     const {
       cardName,
       cardDescription,
@@ -93,7 +127,7 @@ class App extends React.Component {
           hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
-          onSaveButtonClick={ cardName }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }
