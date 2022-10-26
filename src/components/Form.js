@@ -26,7 +26,7 @@ class Form extends Component {
     } = this.props;
 
     const showTrunfo = (bool) => {
-      if (bool) {
+      if (!bool) {
         return (
           <label htmlFor="trunfo-input">
             <input
@@ -40,7 +40,7 @@ class Form extends Component {
           </label>
         );
       }
-      return <p>Você já tem um Super Trunfo em seu baralho</p>;
+      return <p data-testid="trunfo-input">Você já tem um Super Trunfo em seu baralho</p>;
     };
     return (
       <>
