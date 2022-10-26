@@ -24,7 +24,6 @@ class Form extends Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
-
     return (
       <>
         <label htmlFor="name-input">
@@ -111,9 +110,9 @@ class Form extends Component {
         </label>
         <button
           type="submit"
+          disabled={ isSaveButtonDisabled }
           data-testid="save-button"
           onChange={ onInputChange }
-          disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
           id="save-button"
           name="save-button"
