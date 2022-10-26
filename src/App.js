@@ -127,7 +127,7 @@ class App extends React.Component {
         const toCompare = card.cardName.split(' ');
         return toCompare.some((word) => arrayOfFilters.includes(word));
       });
-    console.log(applyFilter);
+    return applyFilter;
   };
 
   render() {
@@ -149,6 +149,7 @@ class App extends React.Component {
 
     const arrayToRender = () => {
       const filteredStoredCards = this.filterCards();
+      console.log(filterRarity);
       if (filterName || filterRarity) return filteredStoredCards;
       return storedCards;
     };
@@ -185,16 +186,16 @@ class App extends React.Component {
           data-testid="name-filter"
           name="filterName"
           value={ filterName }
-          onChange={ this.filterCards }
+          onChange={ this.onInputChange }
         />
         <select
-          data-testid="rare-input"
+          data-testid=""
           onChange={ this.onInputChange }
           value={ filterRarity }
           name="filterRarity"
         >
           <option value="normal"> Normal</option>
-          <option selected value="raro"> Raro</option>
+          <option value="raro"> Raro</option>
           <option value="muito raro"> Muito Raro</option>
         </select>
         {
