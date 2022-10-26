@@ -36,6 +36,7 @@ class Form extends Component {
               value={ cardTrunfo }
               id="trunfo-input"
               name="cardTrunfo"
+              checked
             />
           </label>
         );
