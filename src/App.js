@@ -70,6 +70,11 @@ class App extends React.Component {
     });
   };
 
+  isSuperTrunfoPresent = () => {
+    const { storedCards } = this.state;
+    this.setState({ hasTrunfo: storedCards.some((card) => card.cardTrunfo) });
+  };
+
   onSaveButtonClick = () => {
     const {
       cardName,
@@ -96,6 +101,8 @@ class App extends React.Component {
     this.setState({
       ...this.initialState,
       storedCards: [...storedCards, card],
+    }, () => {
+      this.isSuperTrunfoPresent();
     });
   };
 
