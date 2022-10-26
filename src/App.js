@@ -61,9 +61,7 @@ class App extends React.Component {
   };
 
   onInputChange = (event) => {
-    console.log(this.state);
     const { target } = event;
-    console.log(target.name);
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [target.name]: value }, () => {
       this.validateButton();
@@ -106,8 +104,17 @@ class App extends React.Component {
     });
   };
 
+  handleDeleteCard = (cardName) => {
+    const { storedCards } = this.state;
+    const filteredStoredCards = storedCards
+      .filter((card) => card.cardName !== cardName);
+    this.setState(
+      { storedCards: filteredStoredCards },
+      () => this.isSuperTrunfoPresent(),
+    );
+  };
+
   render() {
-    console.log(this.state);
     const {
       cardName,
       cardDescription,
@@ -146,6 +153,7 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          isPreview
         />
         {
           storedCards.map((carta) => (
@@ -159,6 +167,8 @@ class App extends React.Component {
               cardImage={ carta.cardImage }
               cardRare={ carta.cardRare }
               cardTrunfo={ carta.cardTrunfo }
+              isPreview={ false }
+              handleDeleteCard={ this.handleDeleteCard }
             />
           ))
         }

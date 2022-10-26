@@ -3,11 +3,6 @@ import React, { Component } from 'react';
 
 class Card extends Component {
   render() {
-    const showTrunfo = (bool) => {
-      if (bool) {
-        return <p data-testid="trunfo-card">Super Trunfo</p>;
-      }
-    };
     const {
       cardName,
       cardDescription,
@@ -17,9 +12,18 @@ class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      isPreview,
+      handleDeleteCard,
     } = this.props;
+
+    const showTrunfo = (bool) => {
+      if (bool) {
+        return <p data-testid="trunfo-card">Super Trunfo</p>;
+      }
+    };
+
     return (
-      <>
+      <div id="coolId">
         { showTrunfo(cardTrunfo) }
         <p
           data-testid="name-card"
@@ -66,7 +70,16 @@ class Card extends Component {
           { cardRare }
         </p>
 
-      </>
+        { !isPreview && (
+          <button
+            type="submit"
+            data-testid="delete-button"
+            onClick={ () => handleDeleteCard(cardName) }
+          >
+            Excluir
+          </button>)}
+
+      </div>
     );
   }
 }
@@ -80,6 +93,8 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  isPreview: PropTypes.bool.isRequired,
+  handleDeleteCard: PropTypes.func.isRequired,
 };
 
 export default Card;
