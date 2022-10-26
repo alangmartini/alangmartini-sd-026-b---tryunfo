@@ -119,14 +119,20 @@ class App extends React.Component {
 
   filterCards = () => {
     const { storedCards, filterName, filterRarity } = this.state;
-    const arrayOfFilters = [];
-    if (filterName) arrayOfFilters.push(filterName);
-    if (filterRarity) arrayOfFilters.push(filterRarity);
-    const applyFilter = storedCards
-      .filter((card) => {
-        const toCompare = card.cardName.split(' ');
-        return toCompare.some((word) => arrayOfFilters.includes(word));
-      });
+    if (filterRarity === 'todas') return storedCards;
+    let applyFilter;
+    if (filterName && filterRarity) {
+      applyFilter = storedCards
+        .filter((card) => card.cardName === filterName && card.cardRare === filterRarity);
+    }
+    if (filterName) {
+      applyFilter = storedCards
+        .filter((card) => card.cardName === filterName);
+    }
+    if (filterRarity) {
+      applyFilter = storedCards
+        .filter((card) => card.cardRare === filterRarity);
+    }
     return applyFilter;
   };
 
@@ -149,7 +155,6 @@ class App extends React.Component {
 
     const arrayToRender = () => {
       const filteredStoredCards = this.filterCards();
-      console.log(filterRarity);
       if (filterName || filterRarity) return filteredStoredCards;
       return storedCards;
     };
@@ -189,7 +194,7 @@ class App extends React.Component {
           onChange={ this.onInputChange }
         />
         <select
-          data-testid=""
+          data-testid="rare-filter"
           onChange={ this.onInputChange }
           value={ filterRarity }
           name="filterRarity"
@@ -197,6 +202,7 @@ class App extends React.Component {
           <option value="normal"> Normal</option>
           <option value="raro"> Raro</option>
           <option value="muito raro"> Muito Raro</option>
+          <option value="todas"> Todas</option>
         </select>
         {
           arrayToRender().map((carta) => (
