@@ -16,6 +16,7 @@ class App extends React.Component {
     isSaveButtonDisabled: true,
     filterName: '',
     filterRarity: '',
+    filterTrunfo: false,
   };
 
   constructor() {
@@ -123,17 +124,23 @@ class App extends React.Component {
     let applyFilter;
     if (filterName && filterRarity) {
       applyFilter = storedCards
-        .filter((card) => card.cardName === filterName && card.cardRare === filterRarity);
+        .filter((card) => card.cardName
+          .split(' ').includes(filterName) && card.cardRare === filterRarity);
     }
     if (filterName) {
       applyFilter = storedCards
-        .filter((card) => card.cardName === filterName);
+        .filter((card) => card.cardName.split(' ').includes(filterName));
     }
     if (filterRarity) {
       applyFilter = storedCards
         .filter((card) => card.cardRare === filterRarity);
     }
     return applyFilter;
+  };
+
+  filterTrunfo = () => {
+    const { storedCards } = this.state;
+    return storedCards.filter((card) => card.cardTrunfo === true);
   };
 
   render() {
@@ -151,9 +158,11 @@ class App extends React.Component {
       storedCards,
       filterName,
       filterRarity,
+      filterTrunfo,
     } = this.state;
 
     const arrayToRender = () => {
+      if (filterTrunfo) return this.filterTrunfo();
       const filteredStoredCards = this.filterCards();
       if (filterName || filterRarity) return filteredStoredCards;
       return storedCards;
@@ -192,18 +201,29 @@ class App extends React.Component {
           name="filterName"
           value={ filterName }
           onChange={ this.onInputChange }
+          disabled={ filterTrunfo }
         />
         <select
           data-testid="rare-filter"
           onChange={ this.onInputChange }
           value={ filterRarity }
           name="filterRarity"
+          disabled={ filterTrunfo }
         >
           <option value="normal"> Normal</option>
           <option value="raro"> Raro</option>
           <option value="muito raro"> Muito Raro</option>
           <option value="todas"> Todas</option>
         </select>
+        <label htmlFor="trunfo-input">
+          <input
+            type="checkbox"
+            data-testid="trunfo-filter"
+            onChange={ this.onInputChange }
+            name="filterTrunfo"
+            checked={ filterTrunfo }
+          />
+        </label>
         {
           arrayToRender().map((carta) => (
             <Card
