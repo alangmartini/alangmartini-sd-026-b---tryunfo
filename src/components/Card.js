@@ -16,57 +16,30 @@ class Card extends Component {
       handleDeleteCard,
     } = this.props;
 
-    const showTrunfo = (bool) => {
-      if (bool) {
-        return <p data-testid="trunfo-card">Super Trunfo</p>;
-      }
-    };
-
     return (
       <div id="coolId">
-        { showTrunfo(cardTrunfo) }
-        <p
-          data-testid="name-card"
-          id="name-card"
-        >
+        { cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p> }
+        <p data-testid="name-card">
           { cardName }
         </p>
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-        <p
-          data-testid="description-card"
-          id="description-card"
-        >
+        <p data-testid="description-card">
           { cardDescription }
         </p>
 
-        <p
-          type="number"
-          data-testid="attr1-card"
-          id="attr1-card"
-        >
+        <p type="number" data-testid="attr1-card">
           { cardAttr1 }
         </p>
 
-        <p
-          type="number"
-          data-testid="attr2-card"
-          id="attr2-card"
-        >
+        <p type="number" data-testid="attr2-card">
           { cardAttr2 }
         </p>
 
-        <p
-          type="number"
-          data-testid="attr3-card"
-          id="attr3-card"
-        >
+        <p type="number" data-testid="attr3-card">
           { cardAttr3 }
         </p>
 
-        <p
-          data-testid="rare-card"
-          id="rare-card"
-        >
+        <p data-testid="rare-card">
           { cardRare }
         </p>
 
@@ -78,7 +51,6 @@ class Card extends Component {
           >
             Excluir
           </button>)}
-
       </div>
     );
   }
