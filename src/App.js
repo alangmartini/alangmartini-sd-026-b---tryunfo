@@ -158,8 +158,7 @@ class App extends React.Component {
 
     const arrayToRender = () => {
       if (filterTrunfo) return this.filterTrunfo();
-      const filteredStoredCards = this.filterCards();
-      if (filterName || filterRarity) return filteredStoredCards;
+      if (filterName || filterRarity) return this.filterCards();
       return storedCards;
     };
 
