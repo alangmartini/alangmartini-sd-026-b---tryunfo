@@ -122,11 +122,6 @@ class App extends React.Component {
     const { storedCards, filterName, filterRarity } = this.state;
     if (filterRarity === 'todas') return storedCards;
     let applyFilter;
-    if (filterName && filterRarity) {
-      applyFilter = storedCards
-        .filter((card) => card.cardName
-          .split(' ').includes(filterName) && card.cardRare === filterRarity);
-    }
     if (filterName) {
       applyFilter = storedCards
         .filter((card) => card.cardName.split(' ').includes(filterName));
