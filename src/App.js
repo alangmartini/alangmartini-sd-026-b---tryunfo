@@ -140,7 +140,7 @@ class App extends React.Component {
 
   filterTrunfo = () => {
     const { storedCards } = this.state;
-    return storedCards.filter((card) => card.cardTrunfo === true);
+    return storedCards.filter((card) => card.cardTrunfo);
   };
 
   render() {

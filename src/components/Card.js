@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import ShowP from './ShowP';
 
 class Card extends Component {
   render() {
+    const returnAsNameDashCard = (nameValue) => {
+      const nameSplitted = nameValue.split(/([A-Z])/);
+      nameSplitted.push(nameSplitted.shift());
+      const end = `-${nameSplitted.pop()}`;
+      const dataName = nameSplitted.join('').toLocaleLowerCase() + end;
+      return dataName;
+    };
+
     const {
       cardName,
       cardDescription,
@@ -16,32 +25,22 @@ class Card extends Component {
       handleDeleteCard,
     } = this.props;
 
+    const toRender = {
+      cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardRare };
+
     return (
       <div id="coolId">
         { cardTrunfo && <p data-testid="trunfo-card">Super Trunfo</p> }
-        <p data-testid="name-card">
-          { cardName }
-        </p>
+
+        {
+          Object.values(toRender).map((e, index) => {
+            const name = Object.keys(toRender)[index];
+            const nameAsInfoCard = returnAsNameDashCard(name);
+            return <ShowP key={ nameAsInfoCard } dataId={ nameAsInfoCard } text={ e } />;
+          })
+        }
+
         <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-        <p data-testid="description-card">
-          { cardDescription }
-        </p>
-
-        <p type="number" data-testid="attr1-card">
-          { cardAttr1 }
-        </p>
-
-        <p type="number" data-testid="attr2-card">
-          { cardAttr2 }
-        </p>
-
-        <p type="number" data-testid="attr3-card">
-          { cardAttr3 }
-        </p>
-
-        <p data-testid="rare-card">
-          { cardRare }
-        </p>
 
         { !isPreview && (
           <button
