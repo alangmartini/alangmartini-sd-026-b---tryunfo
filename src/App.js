@@ -222,14 +222,7 @@ class App extends React.Component {
           arrayToRender().map((carta) => (
             <Card
               key={ carta.cardName }
-              cardName={ carta.cardName }
-              cardDescription={ carta.cardDescription }
-              cardAttr1={ carta.cardAttr1 }
-              cardAttr2={ carta.cardAttr2 }
-              cardAttr3={ carta.cardAttr3 }
-              cardImage={ carta.cardImage }
-              cardRare={ carta.cardRare }
-              cardTrunfo={ carta.cardTrunfo }
+              { ...carta }
               isPreview={ false }
               handleDeleteCard={ this.handleDeleteCard }
             />
